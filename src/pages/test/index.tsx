@@ -1,9 +1,16 @@
-import React from 'react'
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/store';
+import { Button } from 'antd';
 
-function index() {
-  return (
-    <div>2222222222222222222</div>
-  )
+function Test() {
+    const store = useStore();
+    return (
+        <>
+            <div>{store.userStore.name}</div>
+            <div>{store.userStore.age}</div>
+            <Button type="primary" onClick={store.userStore.changeUser}>你干嘛🐎</Button>
+        </>
+    );
 }
 
-export default index
+export default observer(Test);

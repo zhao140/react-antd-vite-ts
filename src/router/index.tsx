@@ -4,6 +4,7 @@ import {
     DesktopOutlined,
     ShareAltOutlined
 } from '@ant-design/icons';
+
 const Home = lazy(() => import('@/pages/home/index'));
 const Test = lazy(() => import('@/pages/test/index'));
 
