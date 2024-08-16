@@ -1,25 +1,29 @@
-import React, { useState, Suspense, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Routes, { routesType, routes } from '@/router';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { routesType, AdminRoutes } from '@/router';
 import style from './index.module.less';
 import type { MenuProps } from 'antd';
+import Loading from '@/pages/loading';
 type MenuItem = Required<MenuProps>['items'][number];
 
 const { Header, Sider, Content } = Layout;
 
 const Layouts: React.FC = () => {
-    const { pathname } = useLocation()
-    const navigate = useNavigate()
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
+
+    // 菜单
     const [items, setItems] = useState<MenuItem[]>();
     const handlerouter: any = (r: routesType[]) => {
         let _items = [];
-        _items = r.map((item) => {
+        _items = r.map(item => {
+            if (!item.show) return;
             return {
                 key: item.path,
                 label: item.title,
@@ -31,12 +35,12 @@ const Layouts: React.FC = () => {
         return _items;
     };
     useEffect(() => {
-        let _items = handlerouter(routes);
+        let _items = handlerouter(AdminRoutes);
         setItems(_items);
     }, []);
 
     const onClick: MenuProps['onClick'] = e => {
-        navigate(e.key)
+        navigate(e.key);
     };
 
     return (
@@ -67,8 +71,8 @@ const Layouts: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    <Suspense fallback={<div>Loading...</div>}>
-                        {Routes()}
+                    <Suspense fallback={<Loading />}>
+                        <Outlet />
                     </Suspense>
                 </Content>
             </Layout>

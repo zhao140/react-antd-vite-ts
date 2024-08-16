@@ -1,7 +1,8 @@
 import React from 'react';
 import { Space, Table, Tag, Button } from 'antd';
 import type { TableProps } from 'antd';
-import style from './index.module.less'
+import style from './index.module.less';
+import { useDebounce } from '@/utils/useDebounce';
 
 interface DataType {
     key: string;
@@ -84,10 +85,17 @@ const data: DataType[] = [
     },
 ];
 
-const App: React.FC = () => (
-    <>
-        <Table className={style.table} columns={columns} dataSource={data} />
-        <Button type="primary">你干嘛🐎</Button>
-    </>
-);
+const App: React.FC = () => {
+    const onClickBtn = useDebounce((v: any, a = 123) => {
+        console.log(v);
+    }, 1000);
+    return (
+        <>
+            <Table className={style.table} columns={columns} dataSource={data} />
+            <Button type="primary" onClick={onClickBtn}>
+                你干嘛🐎
+            </Button>
+        </>
+    );
+};
 export default App;
