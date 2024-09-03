@@ -63,10 +63,10 @@ const Layouts: React.FC = () => {
                     />
                 </Header>
                 <Content
+                    className={style.content}
                     style={{
                         margin: '24px 16px',
                         padding: 24,
-                        minHeight: 280,
                         background: colorBgContainer,
                         borderRadius: borderRadiusLG,
                     }}

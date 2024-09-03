@@ -1,3 +1,24 @@
-.box{
+.box {
     height: 100vh;
+}
+
+.content {
+    overflow-x: hidden;
+}
+/* 自定义滚动条的宽度和颜色 */
+.content::-webkit-scrollbar {
+    width: 8px; /* 滚动条的宽度 */
+}
+
+.content::-webkit-scrollbar-track {
+    background: #f1f1f1; /* 滚动条轨道的颜色 */
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #999; /* 滚动条的颜色 */
+    border-radius: 10px; /* 滚动条的圆角 */
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #888; /* 滚动条在悬停状态下的颜色 */
 }
