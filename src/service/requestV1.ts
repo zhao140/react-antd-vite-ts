@@ -1,6 +1,7 @@
+import { apiModel } from '@/types';
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosRequestHeaders } from 'axios';
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://192.168.1.52:5000';
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 // 创建 Axios 实例
 const Axios: AxiosInstance = axios.create({
@@ -53,7 +54,7 @@ export default function <T>({
     method,
     data,
     headers = {} as AxiosRequestHeaders,
-}: Partial<InternalAxiosRequestConfig>): Promise<AxiosResponse<T>> {
+}: Partial<InternalAxiosRequestConfig>): Promise<apiModel<T>> {
     const options: InternalAxiosRequestConfig = {
         url,
         method,
@@ -68,7 +69,7 @@ export default function <T>({
     return new Promise((resolve, reject) => {
         Axios(options)
             .then(response => {
-                resolve(response);
+                resolve(response.data);
             })
             .catch(error => {
                 reject(error);
